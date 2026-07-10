@@ -3,11 +3,11 @@ import { betterAuth } from "better-auth";
 import { jwt } from "better-auth/plugins";
 import { MongoClient } from "mongodb";
 
-const client = new MongoClient(process.env.MONGO_URI);
+const client = new MongoClient(process.env.MONGO_URI as string);
 
 await client.connect();
 
-const db = client.db("fable");
+const db = client.db("digicraft");
 
 export const auth = betterAuth({
     database: mongodbAdapter(db, {
