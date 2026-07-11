@@ -8,8 +8,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { authClient } from '@/lib/auth-client';
 
 const NavBar = () => {
-    const { data: session } = authClient.useSession()
-    
+    const { data: session } = authClient.useSession();
     const user = session?.user
     
     const pathname = usePathname();
