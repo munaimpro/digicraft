@@ -1,11 +1,8 @@
-import React from 'react';
+import ManageProducts from "@/components/dashboard/ManageProducts";
 
-const ManageProductPage = () => {
-    return (
-        <div>
-            ManageProductPage
-        </div>
-    );
-};
 
-export default ManageProductPage;
+const ManageProductsPage = () => {
+    return <ManageProducts />;
+}
+
+export default ManageProductsPage;
