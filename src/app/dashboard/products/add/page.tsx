@@ -1,11 +1,7 @@
-import React from 'react';
+import AddProduct from "@/components/dashboard/AddPorduct";
 
 const AddProductPage = () => {
-    return (
-        <div>
-            AddProductPage
-        </div>
-    );
-};
+    return <AddProduct />;
+}
 
 export default AddProductPage;

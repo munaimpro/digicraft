@@ -1,11 +1,8 @@
-import React from 'react';
+import DashboardOverview from "@/components/dashboard/DashboardOverview";
+
 
 const DashboardHome = () => {
-    return (
-        <div>
-            DashboardHome
-        </div>
-    );
-};
+    return <DashboardOverview />;
+}
 
 export default DashboardHome;
