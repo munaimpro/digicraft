@@ -1,7 +1,12 @@
 import Categories from "@/components/home/Categories";
+import FAQ from "@/components/home/FAQ";
 import FeaturedProducts from "@/components/home/FeaturedProducts";
 import Hero from "@/components/home/Hero";
+import Newsletter from "@/components/home/NewsLetter";
 import Process from "@/components/home/Process";
+import Standards from "@/components/home/Standards";
+import Statistics from "@/components/home/Statistics";
+import Testimonials from "@/components/home/Testimonials";
 
 export default function Home() {
   return (
