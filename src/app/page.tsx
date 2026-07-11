@@ -1,4 +1,7 @@
+import Categories from "@/components/home/Categories";
+import FeaturedProducts from "@/components/home/FeaturedProducts";
 import Hero from "@/components/home/Hero";
+import Process from "@/components/home/Process";
 
 export default function Home() {
   return (
@@ -12,7 +15,7 @@ export default function Home() {
         {/* 2. Operational Flow (How it Works) */}
         <Process />
 
-        {/* 3. Featured digital templates/assets */}
+        {/* 3. Featured products */}
         <FeaturedProducts />
 
         {/* 4. Statistics counter matrix */}

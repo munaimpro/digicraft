@@ -97,4 +97,4 @@ const Categories = () => {
     );
 }
 
-export defafult Categories;
+export default Categories;
