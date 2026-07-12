@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import { FolderHeart, ShieldAlert } from 'lucide-react';
-import ProductTable from '@/src/components/dashboard/ProductTable';
 import { Product } from '@/types';
 import Link from 'next/link';
 import { authClient } from '@/lib/auth-client';
+import ProductTable from './ProductTable';
 
 const ManageProducts = () => {
     const { data: session } = authClient.useSession();
@@ -41,7 +41,7 @@ const ManageProducts = () => {
 
     if (!isAuthorized) {
         return (
-            <div className="rounded-xl border border-zinc-800 bg-zinc-900/10 p-12 text-center flex flex-col items-center justify-center space-y-4 min-h-[350px]">
+            <div className="rounded-xl border border-zinc-800 bg-zinc-900/10 p-12 text-center flex flex-col items-center justify-center space-y-4 min-h-87.5">
                 <div className="rounded-full bg-zinc-900 p-4 border border-zinc-800 text-rose-500">
                     <ShieldAlert className="h-6 w-6" />
                 </div>
@@ -88,7 +88,7 @@ const ManageProducts = () => {
             {loading ? (
                 <div className="space-y-4 animate-pulse">
                     <div className="h-10 bg-zinc-900 rounded-lg w-full" />
-                    <div className="h-[250px] bg-zinc-900 rounded-xl w-full" />
+                    <div className="h-62.5 bg-zinc-900 rounded-xl w-full" />
                 </div>
             ) : (
                 <ProductTable

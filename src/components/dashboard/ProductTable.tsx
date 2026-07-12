@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Product } from '@/types';
-import { Eye, Trash2, ShieldAlert, Sparkles, FolderHeart } from 'lucide-react';
+import { Eye, Trash2, ShieldAlert, FolderHeart } from 'lucide-react';
 
 interface ProductTableProps {
     products: Product[];
@@ -43,7 +43,7 @@ const ProductTable = ({ products, onDeleteSuccess }: ProductTableProps) => {
 
     if (products.length === 0) {
         return (
-            <div className="rounded-xl border border-zinc-850 bg-zinc-900/10 p-12 text-center flex flex-col items-center justify-center space-y-3 min-h-[250px]">
+            <div className="rounded-xl border border-zinc-850 bg-zinc-900/10 p-12 text-center flex flex-col items-center justify-center space-y-3 min-h-62.5">
                 <div className="rounded-full bg-zinc-900 p-3 border border-zinc-800 text-zinc-500">
                     <FolderHeart className="h-6 w-6" />
                 </div>
@@ -59,7 +59,7 @@ const ProductTable = ({ products, onDeleteSuccess }: ProductTableProps) => {
         <div className="space-y-6">
             {/* Table grid wrapper */}
             <div className="overflow-x-auto rounded-xl border border-zinc-850 bg-zinc-900/5 shadow-lg shadow-black/30">
-                <table className="w-full min-w-[640px] text-left border-collapse">
+                <table className="w-full min-w-160 text-left border-collapse">
                     <thead>
                         <tr className="border-b border-zinc-850 bg-zinc-900/20 font-mono text-[10px] font-bold uppercase tracking-widest text-zinc-400">
                             <th className="py-4 px-5">Preview</th>
@@ -87,7 +87,7 @@ const ProductTable = ({ products, onDeleteSuccess }: ProductTableProps) => {
                                 </td>
 
                                 {/* Title & Short description column */}
-                                <td className="py-3.5 px-5 max-w-[240px]">
+                                <td className="py-3.5 px-5 max-w-60">
                                     <p className="font-bold text-white truncate">{product.title}</p>
                                     <p className="text-xs text-zinc-450 truncate">{product.shortDescription}</p>
                                 </td>

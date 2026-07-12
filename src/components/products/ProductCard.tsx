@@ -38,7 +38,6 @@ const ProductCard = ({ product }: ProductCardProps) => {
                     sizes="(max-w-720px) 100vw, (max-w-1200px) 50vw, 33vw"
                     className="object-cover transition-transform duration-500 group-hover:scale-105"
                     referrerPolicy="no-referrer"
-                    priority={product.id === 'prod_1' || product.id === 'prod_2'}
                 />
                 {/* Hover overlay with a fast action icon */}
                 <div className="absolute inset-0 bg-zinc-950/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
@@ -88,8 +87,8 @@ const ProductCard = ({ product }: ProductCardProps) => {
                     </div>
 
                     <Link
-                        href={`/products/${product.id}`}
-                        id={`btn-view-${product.id}`}
+                        href={`/products/${product._id}`}
+                        id={`btn-view-${product._id}`}
                         className="inline-flex items-center space-x-1 rounded bg-zinc-950 hover:bg-emerald-500 border border-zinc-900 hover:border-emerald-400 px-3.5 py-2.5 text-xs font-bold text-zinc-300 hover:text-zinc-950 transition-all duration-300 shadow shadow-black"
                     >
                         <span>View Details</span>

@@ -40,7 +40,7 @@ const ProfileCard = () => {
                     {user?.role || 'user'}
                 </span>
 
-                <p className="text-xs text-zinc-450 leading-relaxed pt-2 border-t border-zinc-900 w-full max-w-[200px]">
+                <p className="text-xs text-zinc-450 leading-relaxed pt-2 border-t border-zinc-900 w-full max-w-50">
                     Member of DigiCraft digital distribution console. Standard commercial license authorization.
                 </p>
             </div>

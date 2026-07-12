@@ -32,7 +32,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                 if (data.products) {
                     // Filter products in the same category, excluding current product
                     const related = data.products.filter(
-                        (p: Product) => p.category === product.category && p.id !== product.id
+                        (p: Product) => p.category === product.category && p._id !== product._id
                     );
                     setRelatedProducts(related.slice(0, 4));
                 }
@@ -41,7 +41,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
             }
         }
         fetchRelated();
-    }, [product.category, product.id]);
+    }, [product.category, product._id]);
 
     const handleDownload = () => {
         setDownloadSuccess(true);
@@ -120,9 +120,9 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                             <Image src={product.imageUrl} alt="Alt 1" fill className="object-cover opacity-80 hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
                         </div>
                         {Array.from({ length: 3 }).map((_, i) => (
-                            <div key={i} className="relative aspect-video rounded-lg border border-zinc-850 bg-zinc-900/20 overflow-hidden cursor-pointer hover:border-zinc-750 transition-colors">
+                            <div key={i} className="relative aspect-video rounded-lg border border-zinc-900 bg-zinc-900/20 overflow-hidden cursor-pointer hover:border-zinc-750 transition-colors">
                                 {/* Seeded alternate perspective thumbnails */}
-                                <Image src={`https://picsum.photos/seed/perspective_${product.id}_${i}/600/400`} alt={`Alt ${i + 2}`} fill className="object-cover opacity-60 hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
+                                <Image src={`https://picsum.photos/seed/perspective_${product._id}_${i}/600/400`} alt={`Alt ${i + 2}`} fill className="object-cover opacity-60 hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
                             </div>
                         ))}
                     </div>
@@ -158,7 +158,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                     </div>
 
                     {/* Price Box */}
-                    <div className="rounded-xl border border-zinc-850 bg-zinc-900/10 p-5 flex items-center justify-between">
+                    <div className="rounded-xl border border-zinc-900 bg-zinc-900/10 p-5 flex items-center justify-between">
                         <div className="flex flex-col">
                             <span className="font-mono text-[10px] uppercase tracking-wider text-zinc-500">One-Time Premium Fee</span>
                             <span className="font-mono text-3xl font-black text-white">${product.price}</span>
@@ -231,7 +231,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                 </div>
 
                 {/* Tab contents */}
-                <div className="rounded-xl border border-zinc-850 bg-zinc-900/5 p-6 min-h-[160px]">
+                <div className="rounded-xl border border-zinc-900 bg-zinc-900/5 p-6 min-h-[160px]">
                     {activeTab === 'overview' && (
                         <div className="space-y-4">
                             <h3 className="text-lg font-bold text-white flex items-center gap-1.5">
@@ -266,7 +266,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                             </h3>
                             <div className="space-y-4">
                                 {reviews.map((rev) => (
-                                    <div key={rev.id} className="rounded-lg border border-zinc-850/80 bg-zinc-900/20 p-4 space-y-2">
+                                    <div key={rev.id} className="rounded-lg border border-zinc-900/80 bg-zinc-900/20 p-4 space-y-2">
                                         <div className="flex items-center justify-between">
                                             <div>
                                                 <h4 className="text-xs font-bold text-white">{rev.name}</h4>
@@ -301,7 +301,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
 
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                         {relatedProducts.map((p) => (
-                            <ProductCard key={p.id} product={p} />
+                            <ProductCard key={p._id} product={p} />
                         ))}
                     </div>
                 </div>

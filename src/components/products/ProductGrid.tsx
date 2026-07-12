@@ -46,7 +46,7 @@ const ProductGrid = ({ products, loading }: ProductGridProps) => {
                     {Array.from({ length: 8 }).map((_, idx) => (
                         <div
                             key={idx}
-                            className="rounded-xl border border-zinc-850 bg-zinc-900/30 overflow-hidden animate-pulse flex flex-col h-[380px] space-y-4 p-5"
+                            className="rounded-xl border border-zinc-900 bg-zinc-900/30 overflow-hidden animate-pulse flex flex-col h-[380px] space-y-4 p-5"
                         >
                             <div className="w-full aspect-video bg-zinc-800/40 rounded-lg" />
                             <div className="h-5 bg-zinc-800/40 rounded w-2/3" />
@@ -64,7 +64,7 @@ const ProductGrid = ({ products, loading }: ProductGridProps) => {
 
     if (products.length === 0) {
         return (
-            <div className="rounded-xl border border-zinc-850 bg-zinc-900/10 p-12 text-center flex flex-col items-center justify-center space-y-3 min-h-[300px]">
+            <div className="rounded-xl border border-zinc-900 bg-zinc-900/10 p-12 text-center flex flex-col items-center justify-center space-y-3 min-h-75">
                 <div className="rounded-full bg-zinc-900 p-3.5 border border-zinc-800 text-zinc-500">
                     <Ban className="h-6 w-6" />
                 </div>
@@ -87,7 +87,7 @@ const ProductGrid = ({ products, loading }: ProductGridProps) => {
             {/* Grid of Product Cards */}
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                 {paginatedProducts.map((product) => (
-                    <ProductCard key={product.id} product={product} />
+                    <ProductCard key={product._id} product={product} />
                 ))}
             </div>
 

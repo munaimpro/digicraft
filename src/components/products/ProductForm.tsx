@@ -90,7 +90,7 @@ const ProductForm = () => {
     return (
         <div className="space-y-6">
             {/* Upper Pre fill alert block */}
-            <div className="rounded-xl border border-zinc-850 bg-zinc-900/10 p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="rounded-xl border border-zinc-900 bg-zinc-900/10 p-5 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div className="space-y-1 text-center sm:text-left">
                     <span className="font-mono text-[10px] uppercase font-bold text-emerald-500 tracking-wider flex items-center gap-1 justify-center sm:justify-start">
                         <Sparkles className="h-3.5 w-3.5" />
@@ -104,14 +104,14 @@ const ProductForm = () => {
                 <button
                     type="button"
                     onClick={handlePreFill}
-                    className="rounded bg-zinc-850 hover:bg-zinc-800 border border-zinc-800 px-3.5 py-1.5 text-xs font-bold text-zinc-200 transition-colors flex-shrink-0"
+                    className="rounded bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 px-3.5 py-1.5 text-xs font-bold text-zinc-200 transition-colors flex-shrink-0"
                 >
                     Auto-fill Sample Asset
                 </button>
             </div>
 
             {/* Main Form container */}
-            <form onSubmit={handleSubmit} className="rounded-xl border border-zinc-850 bg-zinc-900/5 p-6 space-y-6">
+            <form onSubmit={handleSubmit} className="rounded-xl border border-zinc-900 bg-zinc-900/5 p-6 space-y-6">
                 {error && (
                     <div className="rounded-lg border border-rose-500/20 bg-rose-950/15 p-4 flex items-center space-x-2 text-xs font-semibold text-rose-400">
                         <AlertTriangle className="h-4 w-4 flex-shrink-0" />
