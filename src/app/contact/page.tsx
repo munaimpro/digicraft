@@ -1,5 +1,5 @@
+import ContactForm from '@/components/contact/ContactForm';
 import { Mail, Clock, ShieldCheck } from 'lucide-react';
-import ContactForm from '@/src/components/contact/ContactForm';
 
 const ContactPage = () => {
     return (
