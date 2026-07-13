@@ -26,7 +26,7 @@ const ProductForm = () => {
     const [success, setSuccess] = useState(false);
     const [error, setError] = useState('');
 
-    // Pre-fill sample values to make testing incredibly pleasant
+    // Pre-fill sample values
     const handlePreFill = () => {
         setTitle('React Tailwind Multi-SaaS Boilerplate');
         setShortDescription('Next.js 15 starter package with multi-tenant workspaces, Stripe billing, and database schemas.');
@@ -52,7 +52,7 @@ const ProductForm = () => {
         setError('');
 
         try {
-            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/digicraft-product`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/digicraft-product`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -65,11 +65,17 @@ const ProductForm = () => {
                     downloadUrl,
                     fileFormat,
                     fileSize,
+                    rating: 0,
+                    ratingCount: 0,
+                    sellerId: user.id
                 }),
             });
 
-            const data = await res.json();
-            if (res.ok && data.success) {
+            const data = await response.json();
+            
+            console.log(data);
+
+            if (response.ok) {
                 setSuccess(true);
                 setTimeout(() => {
                     router.push('/dashboard/products/manage');

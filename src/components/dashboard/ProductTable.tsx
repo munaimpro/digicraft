@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Product } from '@/types';
 import { Eye, Trash2, ShieldAlert, FolderHeart } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 interface ProductTableProps {
     products: Product[];
@@ -23,12 +24,13 @@ const ProductTable = ({ products, onDeleteSuccess }: ProductTableProps) => {
         setError('');
 
         try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/digicraft-products/${deleteTargetId}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/digicraft-product/${deleteTargetId}`, {
                 method: 'DELETE',
             });
 
             const data = await response.json();
-            if (response.ok && data.success) {
+            if (response.ok) {
+                toast.success('Product Deleted');
                 onDeleteSuccess(deleteTargetId);
                 setDeleteTargetId(null);
             } else {

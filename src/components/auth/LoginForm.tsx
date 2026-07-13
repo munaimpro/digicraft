@@ -32,14 +32,14 @@ const LoginForm = () => {
     const handleDemoFill = (role: 'admin' | 'seller' | 'user') => {
         setError('');
         if (role === 'admin') {
-            setEmail('admin@fable.com');
+            setEmail('admin@digicraft.com');
             setPassword('Admin@123');
         } else if (role === 'seller') {
-            setEmail('seller@fable.com');
-            setPassword('Writer@123');
+            setEmail('seller@digicraft.com');
+            setPassword('Seller@123');
         } else {
-            setEmail('reader@fable.com');
-            setPassword('Reader@123');
+            setEmail('user@digicraft.com');
+            setPassword('User@123');
         }
     };
 
