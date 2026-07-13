@@ -33,8 +33,8 @@ const ManageProducts = () => {
     }, []);
 
     // Update lists reactively upon deletion success
-    const handleDeleteSuccess = (id: string) => {
-        setProducts((prev) => prev.filter((p) => p.id !== id));
+    const handleDeleteSuccess = (_id: string) => {
+        setProducts((prev) => prev.filter((p) => p._id !== _id));
     };
 
     const isAuthorized = user?.role === 'admin' || user?.role === 'seller';
