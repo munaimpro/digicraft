@@ -1,31 +1,56 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { AlertCircle, CheckCircle, UserPlus } from 'lucide-react';
 import { authClient } from '@/lib/auth-client';
+import toast from 'react-hot-toast';
 
 const SignupForm = () => {
-    const { data: session } = authClient.useSession();
-    const user = session?.user
     const router = useRouter();
 
-    // Inputs
-    const [name, setName] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [role, setRole] = useState<'user' | 'seller'>('user');
+    // Getting user data from session
+    const { data: session } = authClient.useSession();
+    const user = session?.user;
+
+    useEffect(() => {
+        if (user) {
+            router.push('/');
+        }
+    }, [user, router]);
+
+    // Inputs / Form states coordinated with RegisterForm logic
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        image: '',
+        password: '',
+        role: 'user' as 'user' | 'seller'
+    });
 
     // Status indicators
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setError('');
+    };
+
+    const handleRoleSelect = (role: 'user' | 'seller') => {
+        setFormData({ ...formData, role });
+        setError('');
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        const { name, email, password, role } = formData;
+
         if (!name || !email || !password) {
             setError('Please fill in all details');
+            toast.error('Please fill in all registration fields.');
             return;
         }
 
@@ -33,22 +58,26 @@ const SignupForm = () => {
         setError('');
         setSuccess('');
 
-        try {
-            const result = await register(name, email, password, role);
-            if (result.success) {
-                setSuccess('Account created successfully! Preparing dashboard...');
-                setTimeout(() => {
-                    router.push('/dashboard');
-                    router.refresh();
-                }, 1200);
-            } else {
-                setError(result.error || 'Failed to register account');
-            }
-        } catch (e) {
-            setError('An unexpected server communication failure occurred.');
-        } finally {
-            setLoading(false);
+        // Better-Auth SignUp Integration
+        const { data, error: authError } = await authClient.signUp.email({
+            email,
+            password,
+            name,
+            role,
+            callbackURL: '/'
+        });
+
+        if (data) {
+            setSuccess('Account created successfully! Preparing dashboard...');
+            toast.success(`Account created as ${role}! Welcome.`);
+            setTimeout(() => {
+                router.push('/dashboard');
+                router.refresh();
+            }, 1200);
+        } else {
+            toast.error(authError?.message || 'Registration failed. Please check credentials.');
         }
+        
     };
 
     return (
@@ -77,9 +106,10 @@ const SignupForm = () => {
                         <input
                             id="reg-name"
                             type="text"
+                            name="name"
                             required
-                            value={name}
-                            onChange={(e) => setName(e.target.value)}
+                            value={formData.name}
+                            onChange={handleChange}
                             placeholder="Sarah Connor"
                             className="w-full rounded-md border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-xs sm:text-sm text-white focus:border-emerald-500 focus:outline-none"
                         />
@@ -91,9 +121,10 @@ const SignupForm = () => {
                         <input
                             id="reg-email"
                             type="email"
+                            name="email"
                             required
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            value={formData.email}
+                            onChange={handleChange}
                             placeholder="sarah@example.com"
                             className="w-full rounded-md border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-xs sm:text-sm text-white focus:border-emerald-500 focus:outline-none"
                         />
@@ -105,9 +136,10 @@ const SignupForm = () => {
                         <input
                             id="reg-password"
                             type="password"
+                            name="password"
                             required
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            value={formData.password}
+                            onChange={handleChange}
                             placeholder="Min 6 characters"
                             className="w-full rounded-md border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-xs sm:text-sm text-white focus:border-emerald-500 focus:outline-none"
                         />
@@ -119,20 +151,20 @@ const SignupForm = () => {
                         <div className="grid grid-cols-2 gap-3">
                             <button
                                 type="button"
-                                onClick={() => setRole('user')}
-                                className={`rounded border py-2 text-xs font-bold transition-all cursor-pointer ${role === 'user'
-                                        ? 'bg-emerald-950/20 border-emerald-500 text-emerald-400'
-                                        : 'bg-zinc-950 border-zinc-800 text-zinc-450 hover:border-zinc-700'
+                                onClick={() => handleRoleSelect('user')}
+                                className={`rounded border py-2 text-xs font-bold transition-all cursor-pointer ${formData.role === 'user'
+                                    ? 'bg-emerald-950/20 border-emerald-500 text-emerald-400'
+                                    : 'bg-zinc-950 border-zinc-800 text-zinc-450 hover:border-zinc-700'
                                     }`}
                             >
-                                Developer User
+                                User
                             </button>
                             <button
                                 type="button"
-                                onClick={() => setRole('seller')}
-                                className={`rounded border py-2 text-xs font-bold transition-all cursor-pointer ${role === 'seller'
-                                        ? 'bg-emerald-950/20 border-emerald-500 text-emerald-400'
-                                        : 'bg-zinc-950 border-zinc-800 text-zinc-455 hover:border-zinc-700'
+                                onClick={() => handleRoleSelect('seller')}
+                                className={`rounded border py-2 text-xs font-bold transition-all cursor-pointer ${formData.role === 'seller'
+                                    ? 'bg-emerald-950/20 border-emerald-500 text-emerald-400'
+                                    : 'bg-zinc-950 border-zinc-800 text-zinc-455 hover:border-zinc-700'
                                     }`}
                             >
                                 Asset Seller

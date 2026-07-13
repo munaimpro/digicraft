@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Terminal } from 'lucide-react';
-import RegisterForm from '@/src/components/auth/SignupForm';
+import SignupForm from '@/components/auth/SignupForm';
 
 const SignupPage = () => {
     return (
@@ -24,7 +24,7 @@ const SignupPage = () => {
                         </p>
                     </div>
 
-                    <RegisterForm />
+                    <SignupForm />
                 </div>
             </main>
         </div>

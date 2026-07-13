@@ -1,16 +1,24 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { LogIn, AlertCircle, CheckCircle, HelpCircle } from 'lucide-react';
 import { authClient } from '@/lib/auth-client';
+import toast from 'react-hot-toast';
 
 const LoginForm = () => {
+    const router = useRouter();
+
+    // Getting user data from session
     const { data: session } = authClient.useSession();
     const user = session?.user;
 
-    const router = useRouter();
+    useEffect(() => {
+        if (user) {
+            router.push('/');
+        }
+    }, [user, router]);
 
     // Input fields
     const [email, setEmail] = useState('');
@@ -22,15 +30,16 @@ const LoginForm = () => {
     const [success, setSuccess] = useState('');
 
     const handleDemoFill = (role: 'admin' | 'seller' | 'user') => {
+        setError('');
         if (role === 'admin') {
-            setEmail('admin@digicraft.com');
-            setPassword('admin123');
+            setEmail('admin@fable.com');
+            setPassword('Admin@123');
         } else if (role === 'seller') {
-            setEmail('seller@digicraft.com');
-            setPassword('seller123');
+            setEmail('seller@fable.com');
+            setPassword('Writer@123');
         } else {
-            setEmail('john@example.com');
-            setPassword('john123');
+            setEmail('reader@fable.com');
+            setPassword('Reader@123');
         }
     };
 
@@ -38,6 +47,7 @@ const LoginForm = () => {
         e.preventDefault();
         if (!email || !password) {
             setError('Please fill in all credentials');
+            toast.error('Please specify both email and password.');
             return;
         }
 
@@ -46,18 +56,27 @@ const LoginForm = () => {
         setSuccess('');
 
         try {
-            const result = await login(email, password);
-            if (result.success) {
+            const { data, error: authError } = await authClient.signIn.email({
+                email,
+                password,
+                rememberMe: false,
+            });
+
+            if (data) {
                 setSuccess('Authentication approved. Entering dashboard...');
+                toast.success('Successfully signed in!');
                 setTimeout(() => {
-                    router.push('/dashboard');
-                    router.refresh();
+                    router.push('/');
                 }, 1200);
-            } else {
-                setError(result.error || 'Invalid credentials');
+            }
+
+            if (authError) {
+                setError(authError.message || 'Invalid credentials');
+                toast.error(authError.message || 'Login failed.');
             }
         } catch (e) {
             setError('An unexpected communication failure occurred.');
+            toast.error('An unexpected communication failure occurred.');
         } finally {
             setLoading(false);
         }
@@ -123,7 +142,7 @@ const LoginForm = () => {
                             type="email"
                             required
                             value={email}
-                            onChange={(e) => setEmail(e.target.value)}
+                            onChange={(e) => { setEmail(e.target.value); setError(''); }}
                             placeholder="developer@digicraft.com"
                             className="w-full rounded-md border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-xs sm:text-sm text-white focus:border-emerald-500 focus:outline-none"
                         />
@@ -139,7 +158,7 @@ const LoginForm = () => {
                             type="password"
                             required
                             value={password}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => { setPassword(e.target.value); setError(''); }}
                             placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
                             className="w-full rounded-md border border-zinc-800 bg-zinc-950 px-3.5 py-2.5 text-xs sm:text-sm text-white focus:border-emerald-500 focus:outline-none"
                         />
@@ -159,7 +178,7 @@ const LoginForm = () => {
             {/* Redirect section */}
             <div className="text-center text-xs text-zinc-500">
                 <span>Don&apos;t have an account yet? </span>
-                <Link href="/register" className="font-semibold text-emerald-400 hover:text-emerald-300 transition-colors">
+                <Link href="/signup" className="font-semibold text-emerald-400 hover:text-emerald-300 transition-colors">
                     Join Marketplace
                 </Link>
             </div>
