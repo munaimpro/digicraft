@@ -15,3 +15,13 @@ export interface Product {
     createdAt: string;
     sellerId?: string;
 }
+
+// User Interface
+export interface User {
+    _id: string;
+    name: string;
+    email: string;
+    passwordHash: string;
+    role: 'user' | 'seller' | 'admin';
+    createdAt: string;
+}

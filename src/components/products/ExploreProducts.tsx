@@ -35,7 +35,7 @@ const ExploreProducts = () => {
     useEffect(() => {
         async function fetchProducts() {
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/my-products`);
+                const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/digicraft-products`);
                 const data = await response.json();
                 if (data) {
                     setProducts(data);

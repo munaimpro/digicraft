@@ -27,11 +27,11 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
     useEffect(() => {
         async function fetchRelated() {
             try {
-                const res = await fetch('/api/products');
-                const data = await res.json();
-                if (data.products) {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/digicraft-products`);
+                const data = await response.json();
+                if (data) {
                     // Filter products in the same category, excluding current product
-                    const related = data.products.filter(
+                    const related = data.filter(
                         (p: Product) => p.category === product.category && p._id !== product._id
                     );
                     setRelatedProducts(related.slice(0, 4));
