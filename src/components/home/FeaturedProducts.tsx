@@ -13,11 +13,11 @@ const FeaturedProducts = () => {
     useEffect(() => {
         async function fetchProducts() {
             try {
-                const res = await fetch('/api/products');
-                const data = await res.json();
-                if (data.products) {
-                    // Display the first 4 products as featured
-                    setProducts(data.products.slice(0, 4));
+                const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/featured-products`);
+                const data = await response.json();
+                console.log(data);
+                if (data) {
+                    setProducts(data);
                 }
             } catch (e) {
                 console.error(e);
@@ -75,7 +75,7 @@ const FeaturedProducts = () => {
                 ) : (
                     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
                         {products.map((product) => (
-                            <ProductCard key={product.id} product={product} />
+                            <ProductCard key={product._id} product={product} />
                         ))}
                     </div>
                 )}

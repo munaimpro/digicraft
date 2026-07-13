@@ -17,10 +17,10 @@ const AnalyticsPage = () => {
     useEffect(() => {
         async function fetchProducts() {
             try {
-                const res = await fetch('/api/products');
-                const data = await res.json();
-                if (data.products) {
-                    setProducts(data.products);
+                const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/digicraft-products`);
+                const data = await response.json();
+                if (data) {
+                    setProducts(data);
                 }
             } catch (e) {
                 console.error(e);

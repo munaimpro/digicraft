@@ -52,7 +52,7 @@ const ProductForm = () => {
         setError('');
 
         try {
-            const res = await fetch('/api/products', {
+            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/digicraft-product`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({

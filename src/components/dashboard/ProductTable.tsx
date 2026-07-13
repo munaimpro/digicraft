@@ -23,12 +23,12 @@ const ProductTable = ({ products, onDeleteSuccess }: ProductTableProps) => {
         setError('');
 
         try {
-            const res = await fetch(`/api/products/${deleteTargetId}`, {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/digicraft-products/${deleteTargetId}`, {
                 method: 'DELETE',
             });
 
-            const data = await res.json();
-            if (res.ok && data.success) {
+            const data = await response.json();
+            if (response.ok && data.success) {
                 onDeleteSuccess(deleteTargetId);
                 setDeleteTargetId(null);
             } else {

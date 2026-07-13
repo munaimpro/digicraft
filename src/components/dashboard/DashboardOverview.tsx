@@ -16,10 +16,10 @@ const DashboardOverview = () => {
     useEffect(() => {
         async function fetchProducts() {
             try {
-                const res = await fetch('/api/products');
-                const data = await res.json();
-                if (data.products) {
-                    setProducts(data.products.slice(0, 3));
+                const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/featured-products`);
+                const data = await response.json();
+                if (data) {
+                    setProducts(data);
                 }
             } catch (e) {
                 console.error(e);
