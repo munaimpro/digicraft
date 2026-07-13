@@ -8,7 +8,7 @@ import { Eye, Trash2, ShieldAlert, FolderHeart } from 'lucide-react';
 
 interface ProductTableProps {
     products: Product[];
-    onDeleteSuccess: (id: string) => void;
+    onDeleteSuccess: (_id: string) => void;
 }
 
 const ProductTable = ({ products, onDeleteSuccess }: ProductTableProps) => {
@@ -72,7 +72,7 @@ const ProductTable = ({ products, onDeleteSuccess }: ProductTableProps) => {
                     </thead>
                     <tbody className="divide-y divide-zinc-900/40 text-sm">
                         {products.map((product) => (
-                            <tr key={product.id} className="hover:bg-zinc-900/10 transition-colors">
+                            <tr key={product._id} className="hover:bg-zinc-900/10 transition-colors">
                                 {/* Thumbnail Image column */}
                                 <td className="py-3.5 px-5">
                                     <div className="relative h-11 w-16 rounded border border-zinc-800 bg-zinc-950 overflow-hidden">
@@ -113,14 +113,14 @@ const ProductTable = ({ products, onDeleteSuccess }: ProductTableProps) => {
                                 {/* Direct buttons Column */}
                                 <td className="py-3.5 px-5 text-right space-x-1">
                                     <Link
-                                        href={`/products/${product.id}`}
+                                        href={`/products/${product._id}`}
                                         className="inline-flex h-8 w-8 items-center justify-center rounded border border-zinc-800 bg-zinc-900 text-zinc-300 hover:text-white hover:bg-zinc-800 transition-colors"
                                         title="View details"
                                     >
                                         <Eye className="h-4 w-4" />
                                     </Link>
                                     <button
-                                        onClick={() => setDeleteTargetId(product.id)}
+                                        onClick={() => setDeleteTargetId(product._id)}
                                         className="inline-flex h-8 w-8 items-center justify-center rounded border border-rose-950/25 bg-rose-950/10 text-rose-400 hover:text-rose-300 hover:bg-rose-950/30 transition-colors"
                                         title="Delete product"
                                     >
