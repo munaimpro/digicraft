@@ -32,7 +32,7 @@ export default function NotFound() {
                     <div className="pt-4">
                         <Link
                             href="/"
-                            className="inline-flex items-center space-x-2 px-5 py-2.5 rounded bg-zinc-900 border border-zinc-800 text-xs font-bold text-white hover:bg-zinc-850 hover:text-emerald-400 transition-colors"
+                            className="inline-flex items-center space-x-2 px-5 py-2.5 rounded bg-zinc-900 border border-zinc-900 text-xs font-bold text-white hover:bg-zinc-850 hover:text-emerald-400 transition-colors"
                         >
                             <Home className="h-4 w-4" />
                             <span>Return to Core Portal</span>

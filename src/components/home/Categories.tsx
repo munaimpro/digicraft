@@ -82,7 +82,7 @@ const Categories = () => {
                                     </p>
                                 </div>
 
-                                <div className="relative pt-3 border-t border-zinc-850/60 z-10 flex items-center justify-between font-mono text-[10px]">
+                                <div className="relative pt-3 border-t border-zinc-900/60 z-10 flex items-center justify-between font-mono text-[10px]">
                                     <span className="text-zinc-500">{cat.count}</span>
                                     <span className="text-emerald-500 font-bold flex items-center gap-0.5 group-hover:translate-x-0.5 transition-transform">
                                         Explore Directory &rarr;

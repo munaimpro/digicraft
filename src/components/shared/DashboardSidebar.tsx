@@ -9,7 +9,7 @@ import { authClient } from '@/lib/auth-client';
 const DashboardSidebar = () => {
     const { data: session } = authClient.useSession();
     const user = session?.user
-    
+
     const pathname = usePathname();
     const router = useRouter();
 
@@ -69,7 +69,7 @@ const DashboardSidebar = () => {
                 <div className="flex items-center space-x-2 pb-6 border-b border-zinc-900">
                     <div className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
                     <span className="font-mono text-xs font-bold uppercase tracking-widest text-zinc-400">
-                        Control Console
+                        Live Dashboard
                     </span>
                 </div>
 
@@ -82,8 +82,8 @@ const DashboardSidebar = () => {
                                 key={item.path}
                                 href={item.path}
                                 className={`group flex items-center justify-between rounded-md px-3.5 py-2.5 text-sm font-medium transition-all duration-150 ${active
-                                        ? 'bg-zinc-900 text-emerald-400 border border-zinc-850'
-                                        : 'text-zinc-400 hover:bg-zinc-900/40 hover:text-zinc-200'
+                                    ? 'bg-zinc-900 text-emerald-400 border border-zinc-900'
+                                    : 'text-zinc-400 hover:bg-zinc-900/40 hover:text-zinc-200'
                                     }`}
                             >
                                 <div className="flex items-center space-x-3">
@@ -116,7 +116,7 @@ const DashboardSidebar = () => {
 
                 <button
                     onClick={handleLogout}
-                    className="flex w-full items-center justify-center space-x-2 rounded-md border border-zinc-850 bg-zinc-900 py-2.5 text-xs font-semibold text-rose-400 hover:bg-rose-950/15 hover:border-rose-900/40 transition-all duration-200"
+                    className="flex w-full items-center justify-center space-x-2 rounded-md border border-zinc-900 bg-zinc-900 py-2.5 text-xs font-semibold text-rose-400 hover:bg-rose-950/15 hover:border-rose-900/40 transition-all duration-200"
                 >
                     <LogOut className="h-4 w-4" />
                     <span>Exit Dashboard</span>

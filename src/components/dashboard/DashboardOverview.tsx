@@ -3,32 +3,47 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingBag, ArrowRight, ShieldCheck, Heart, Download, HelpCircle, Sparkles } from 'lucide-react';
 import Link from 'next/link';
-import { Product } from '@/types';
 import { authClient } from '@/lib/auth-client';
+
+// API response matching the exact data format provided
+interface PurchasedProduct {
+    _id: string;
+    productId: string;
+    productTitle: string;
+    imageUrl: string;
+    totalAmount: number;
+    downloadUrl: string;
+    sellerId: string;
+    buyerId: string;
+    purchaseDate: string;
+}
 
 const DashboardOverview = () => {
     const { data: session } = authClient.useSession();
-    const user = session?.user 
+    const user = session?.user;
     
-    const [products, setProducts] = useState<Product[]>([]);
+    const [products, setProducts] = useState<PurchasedProduct[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function fetchProducts() {
+            if (!user?.id) return;
             try {
-                const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/featured-products`);
+                setLoading(true);
+                const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/purchase-history/${user?.id}`);
                 const data = await response.json();
+                console.log(data);
                 if (data) {
                     setProducts(data);
                 }
-            } catch (e) {
-                console.error(e);
+            } catch (error) {
+                console.error("Error fetching data:", error);
             } finally {
                 setLoading(false);
             }
         }
         fetchProducts();
-    }, []);
+    }, [user?.id]);
 
     const isSellerOrAdmin = user?.role === 'seller' || user?.role === 'admin';
 
@@ -41,11 +56,11 @@ const DashboardOverview = () => {
                 <div className="space-y-3.5 relative z-10">
                     <div className="inline-flex items-center space-x-1 font-mono text-[9px] uppercase font-bold tracking-widest text-emerald-450">
                         <Sparkles className="h-3 w-3" />
-                        <span>Developer session active</span>
+                        <span>Session active</span>
                     </div>
 
                     <h1 className="text-2xl sm:text-3xl font-black text-white tracking-tight leading-tight">
-                        Welcome Back, <span className="text-emerald-400">{user?.name || 'Developer'}</span>
+                        Welcome Back, <span className="text-emerald-400">{user?.name}</span>
                     </h1>
 
                     <p className="text-xs sm:text-sm text-zinc-400 max-w-xl leading-relaxed">
@@ -81,7 +96,7 @@ const DashboardOverview = () => {
                             href="/dashboard/products/manage"
                             className="group rounded-xl border border-zinc-800 bg-zinc-900/20 p-5 hover:border-zinc-700/80 hover:bg-zinc-900/40 transition-all duration-200 flex flex-col justify-between h-[140px]"
                         >
-                            <span className="font-mono text-[9px] uppercase text-cyan-450 font-bold">Catalog Directory</span>
+                            <span className="font-mono text-[9px] uppercase text-cyan-500 font-bold">Catalog Directory</span>
                             <div>
                                 <h3 className="font-bold text-white group-hover:text-cyan-400 transition-colors">Manage Products &rarr;</h3>
                                 <p className="text-xs text-zinc-500 mt-1">List, review details, or safely delete items from live catalog databases.</p>
@@ -92,7 +107,7 @@ const DashboardOverview = () => {
                             href="/dashboard/analytics"
                             className="group rounded-xl border border-zinc-800 bg-zinc-900/20 p-5 hover:border-zinc-700/80 hover:bg-zinc-900/40 transition-all duration-200 flex flex-col justify-between h-[140px]"
                         >
-                            <span className="font-mono text-[9px] uppercase text-violet-450 font-bold">Business intelligence</span>
+                            <span className="font-mono text-[9px] uppercase text-violet-500 font-bold">Business intelligence</span>
                             <div>
                                 <h3 className="font-bold text-white group-hover:text-violet-400 transition-colors">View Analytics &rarr;</h3>
                                 <p className="text-xs text-zinc-500 mt-1">Audit sales summaries, directory statistics, and monthly trends.</p>
@@ -106,7 +121,7 @@ const DashboardOverview = () => {
                     <div className="rounded-xl border border-zinc-800 bg-zinc-900/5 p-6 space-y-4">
                         <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-300 flex items-center gap-1.5 pb-2 border-b border-zinc-900">
                             <ShoppingBag className="h-4.5 w-4.5 text-emerald-500" />
-                            <span>Purchase History ({products.length > 0 ? 1 : 0})</span>
+                            <span>Purchase History ({products.length})</span>
                         </h3>
 
                         {loading ? (
@@ -115,20 +130,27 @@ const DashboardOverview = () => {
                             </div>
                         ) : products.length > 0 ? (
                             <div className="space-y-3.5">
-                                <div className="flex items-center justify-between p-3 rounded bg-zinc-900/25 border border-zinc-800">
-                                    <div>
-                                        <h4 className="text-xs font-bold text-white">{products[0]?.title}</h4>
-                                        <span className="font-mono text-[9px] text-zinc-500 uppercase">Format: {products[0]?.fileFormat} &bull; Standard Developer License</span>
-                                    </div>
-                                    <a
-                                        href={products[0]?.downloadUrl}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="flex h-8 items-center space-x-1.5 rounded bg-zinc-800 hover:bg-emerald-500 hover:text-zinc-950 px-3 text-[10px] font-bold text-zinc-300 transition-colors border border-zinc-700 cursor-pointer"
-                                    >
-                                        <Download className="h-3 w-3" />
-                                        <span>Download</span>
-                                    </a>
+                                {/* Mapped products list container */}
+                                <div className="space-y-3 max-h-[350px] overflow-y-auto pr-1 custom-scrollbar">
+                                    {products.map((item) => (
+                                        <div key={item._id} className="flex items-center justify-between p-3 rounded bg-zinc-900/25 border border-zinc-800">
+                                            <div>
+                                                <h4 className="text-xs font-bold text-white">{item.productTitle}</h4>
+                                                <span className="font-mono text-[9px] text-zinc-500 uppercase">
+                                                    Amount: ${item.totalAmount} &bull; Standard Developer License
+                                                </span>
+                                            </div>
+                                            <a
+                                                href={item.downloadUrl}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="flex h-8 items-center space-x-1.5 rounded bg-zinc-800 hover:bg-emerald-500 hover:text-zinc-950 px-3 text-[10px] font-bold text-zinc-300 transition-colors border border-zinc-700 cursor-pointer"
+                                            >
+                                                <Download className="h-3 w-3" />
+                                                <span>Download</span>
+                                            </a>
+                                        </div>
+                                    ))}
                                 </div>
 
                                 <div className="text-center pt-2">

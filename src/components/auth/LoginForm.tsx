@@ -16,7 +16,7 @@ const LoginForm = () => {
 
     useEffect(() => {
         if (user) {
-            router.push('/');
+            router.push('/dashboard');
         }
     }, [user, router]);
 
@@ -66,7 +66,7 @@ const LoginForm = () => {
                 setSuccess('Authentication approved. Entering dashboard...');
                 toast.success('Successfully signed in!');
                 setTimeout(() => {
-                    router.push('/');
+                    router.push('/dashboard');
                 }, 1200);
             }
 

@@ -64,11 +64,11 @@ const AnalyticsChart = ({ products }: AnalyticsChartProps) => {
         return (
             <div className="space-y-6 animate-pulse">
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-                    <div className="h-[100px] rounded-xl bg-zinc-900 border border-zinc-850" />
-                    <div className="h-[100px] rounded-xl bg-zinc-900 border border-zinc-850" />
-                    <div className="h-[100px] rounded-xl bg-zinc-900 border border-zinc-850" />
+                    <div className="h-[100px] rounded-xl bg-zinc-900 border border-zinc-900" />
+                    <div className="h-[100px] rounded-xl bg-zinc-900 border border-zinc-900" />
+                    <div className="h-[100px] rounded-xl bg-zinc-900 border border-zinc-900" />
                 </div>
-                <div className="h-[250px] rounded-xl bg-zinc-900 border border-zinc-850" />
+                <div className="h-[250px] rounded-xl bg-zinc-900 border border-zinc-900" />
             </div>
         );
     }
@@ -78,7 +78,7 @@ const AnalyticsChart = ({ products }: AnalyticsChartProps) => {
             {/* 3 Metric Cards */}
             <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
                 {/* Total catalog products */}
-                <div className="rounded-xl border border-zinc-850 bg-zinc-900/20 p-5 flex items-center justify-between">
+                <div className="rounded-xl border border-zinc-900 bg-zinc-900/20 p-5 flex items-center justify-between">
                     <div className="space-y-1">
                         <span className="font-mono text-[10px] uppercase font-bold text-zinc-500">Live Catalog Size</span>
                         <p className="text-2xl font-black text-white">{totalProductsCount} Assets</p>
@@ -90,7 +90,7 @@ const AnalyticsChart = ({ products }: AnalyticsChartProps) => {
                 </div>
 
                 {/* Total simulated earnings */}
-                <div className="rounded-xl border border-zinc-850 bg-zinc-900/20 p-5 flex items-center justify-between">
+                <div className="rounded-xl border border-zinc-900 bg-zinc-900/20 p-5 flex items-center justify-between">
                     <div className="space-y-1">
                         <span className="font-mono text-[10px] uppercase font-bold text-zinc-500">Cumulative Sales Volume</span>
                         <p className="text-2xl font-black text-white">${totalRevenueMock.toLocaleString()}</p>
@@ -102,7 +102,7 @@ const AnalyticsChart = ({ products }: AnalyticsChartProps) => {
                 </div>
 
                 {/* Categories count */}
-                <div className="rounded-xl border border-zinc-850 bg-zinc-900/20 p-5 flex items-center justify-between">
+                <div className="rounded-xl border border-zinc-900 bg-zinc-900/20 p-5 flex items-center justify-between">
                     <div className="space-y-1">
                         <span className="font-mono text-[10px] uppercase font-bold text-zinc-500">Core Directory Nodes</span>
                         <p className="text-2xl font-black text-white">{categoryData.length} Categories</p>
@@ -117,8 +117,8 @@ const AnalyticsChart = ({ products }: AnalyticsChartProps) => {
             {/* Recharts Displays */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 {/* Sales Trend LineChart */}
-                <div className="rounded-xl border border-zinc-850 bg-zinc-900/5 p-5 space-y-4">
-                    <div className="flex items-center space-x-2 pb-3 border-b border-zinc-850/60">
+                <div className="rounded-xl border border-zinc-900 bg-zinc-900/5 p-5 space-y-4">
+                    <div className="flex items-center space-x-2 pb-3 border-b border-zinc-900/60">
                         <TrendingUp className="h-4.5 w-4.5 text-emerald-500" />
                         <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-300">
                             Monthly Platform Performance
@@ -147,8 +147,8 @@ const AnalyticsChart = ({ products }: AnalyticsChartProps) => {
                 </div>
 
                 {/* Category Share BarChart */}
-                <div className="rounded-xl border border-zinc-850 bg-zinc-900/5 p-5 space-y-4">
-                    <div className="flex items-center space-x-2 pb-3 border-b border-zinc-850/60">
+                <div className="rounded-xl border border-zinc-900 bg-zinc-900/5 p-5 space-y-4">
+                    <div className="flex items-center space-x-2 pb-3 border-b border-zinc-900/60">
                         <BarChart3 className="h-4.5 w-4.5 text-cyan-450" />
                         <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-300">
                             Product Distribution by Category

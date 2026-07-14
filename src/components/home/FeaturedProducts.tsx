@@ -60,7 +60,7 @@ const FeaturedProducts = () => {
                         {Array.from({ length: 4 }).map((_, idx) => (
                             <div
                                 key={idx}
-                                className="rounded-xl border border-zinc-850 bg-zinc-900/30 overflow-hidden animate-pulse flex flex-col h-[380px] space-y-4 p-5"
+                                className="rounded-xl border border-zinc-900 bg-zinc-900/30 overflow-hidden animate-pulse flex flex-col h-[380px] space-y-4 p-5"
                             >
                                 <div className="w-full aspect-video bg-zinc-800/40 rounded-lg" />
                                 <div className="h-5 bg-zinc-800/40 rounded w-2/3" />

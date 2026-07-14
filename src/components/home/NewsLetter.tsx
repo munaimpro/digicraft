@@ -75,7 +75,7 @@ const Newsletter = () => {
                         </div>
                     )}
 
-                    <div className="flex justify-center items-center space-x-2 text-[10px] font-mono text-zinc-550 pt-2 border-t border-zinc-850/60 max-w-sm mx-auto">
+                    <div className="flex justify-center items-center space-x-2 text-[10px] font-mono text-zinc-550 pt-2 border-t border-zinc-900/60 max-w-sm mx-auto">
                         <ShieldCheck className="h-4 w-4 text-zinc-600" />
                         <span>Zero Spam &bull; Unsubscribe at any time &bull; Encrypted SSL</span>
                     </div>

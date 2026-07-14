@@ -47,14 +47,14 @@ const Hero = () => {
 
     return (
         <section className="relative overflow-hidden bg-zinc-950 py-16 md:py-24 lg:py-28 border-b border-zinc-900">
-            
+
             {/* Background gradients */}
             <div className="absolute top-0 left-1/4 h-80 w-80 rounded-full bg-emerald-500/10 blur-3xl" />
             <div className="absolute bottom-10 right-1/4 h-96 w-96 rounded-full bg-emerald-600/5 blur-3xl" />
 
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                    
+
                     {/* Text Details Left Column */}
                     <div className="lg:col-span-7 space-y-6">
                         <div className="inline-flex items-center space-x-1.5 rounded-full border border-emerald-500/20 bg-emerald-950/20 px-3.5 py-1 text-xs font-semibold text-emerald-400">
@@ -133,7 +133,7 @@ const Hero = () => {
                                     </p>
                                 </div>
 
-                                <div className="mt-5 pt-3.5 border-t border-zinc-850/60 flex justify-between items-center text-xs font-mono">
+                                <div className="mt-5 pt-3.5 border-t border-zinc-900/60 flex justify-between items-center text-xs font-mono">
                                     <div className="flex items-center space-x-1">
                                         <Star className="h-3.5 w-3.5 fill-emerald-400 stroke-emerald-400" />
                                         <span className="font-bold text-white">{slide.rating}</span>

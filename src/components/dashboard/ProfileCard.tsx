@@ -25,7 +25,7 @@ const ProfileCard = () => {
     return (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Visual Identity Left column */}
-            <div className="lg:col-span-4 rounded-xl border border-zinc-850 bg-zinc-900/5 p-6 flex flex-col items-center justify-center text-center space-y-4">
+            <div className="lg:col-span-4 rounded-xl border border-zinc-900 bg-zinc-900/5 p-6 flex flex-col items-center justify-center text-center space-y-4">
                 <div className="h-20 w-20 rounded-full border border-zinc-800 bg-zinc-900 flex items-center justify-center text-emerald-400 font-bold text-3xl uppercase shadow-lg shadow-black/40">
                     {name.slice(0, 2)}
                 </div>
@@ -46,7 +46,7 @@ const ProfileCard = () => {
             </div>
 
             {/* Edit Profile right column */}
-            <div className="lg:col-span-8 rounded-xl border border-zinc-850 bg-zinc-900/5 p-6">
+            <div className="lg:col-span-8 rounded-xl border border-zinc-900 bg-zinc-900/5 p-6">
                 <div className="flex items-center space-x-2 pb-4 border-b border-zinc-900">
                     <Key className="h-4.5 w-4.5 text-emerald-500" />
                     <h3 className="font-mono text-xs font-bold uppercase tracking-wider text-zinc-300">
@@ -78,7 +78,7 @@ const ProfileCard = () => {
                                     required
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
-                                    className="w-full rounded-md border border-zinc-850 bg-zinc-950 py-2.5 pl-9 pr-3 text-xs sm:text-sm text-white focus:border-emerald-500 focus:outline-none"
+                                    className="w-full rounded-md border border-zinc-900 bg-zinc-950 py-2.5 pl-9 pr-3 text-xs sm:text-sm text-white focus:border-emerald-500 focus:outline-none"
                                 />
                             </div>
                         </div>
@@ -98,7 +98,7 @@ const ProfileCard = () => {
                                     required
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full rounded-md border border-zinc-850 bg-zinc-950 py-2.5 pl-9 pr-3 text-xs sm:text-sm text-white focus:border-emerald-500 focus:outline-none"
+                                    className="w-full rounded-md border border-zinc-900 bg-zinc-950 py-2.5 pl-9 pr-3 text-xs sm:text-sm text-white focus:border-emerald-500 focus:outline-none"
                                 />
                             </div>
                         </div>
@@ -117,7 +117,7 @@ const ProfileCard = () => {
                                     type="text"
                                     disabled
                                     value={user?.role?.toUpperCase() || 'USER'}
-                                    className="w-full rounded-md border border-zinc-850 bg-zinc-900/40 py-2.5 pl-9 pr-3 text-xs sm:text-sm text-zinc-500 focus:outline-none cursor-not-allowed"
+                                    className="w-full rounded-md border border-zinc-900 bg-zinc-900/40 py-2.5 pl-9 pr-3 text-xs sm:text-sm text-zinc-500 focus:outline-none cursor-not-allowed"
                                 />
                             </div>
                         </div>
@@ -136,7 +136,7 @@ const ProfileCard = () => {
                                     type="text"
                                     disabled
                                     value="Jul 2026 (Live Platform Session)"
-                                    className="w-full rounded-md border border-zinc-850 bg-zinc-900/40 py-2.5 pl-9 pr-3 text-xs sm:text-sm text-zinc-500 focus:outline-none cursor-not-allowed"
+                                    className="w-full rounded-md border border-zinc-900 bg-zinc-900/40 py-2.5 pl-9 pr-3 text-xs sm:text-sm text-zinc-500 focus:outline-none cursor-not-allowed"
                                 />
                             </div>
                         </div>

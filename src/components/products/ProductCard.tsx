@@ -30,7 +30,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
             </span>
 
             {/* Image Preview Container */}
-            <div className="relative aspect-video w-full overflow-hidden border-b border-zinc-850/80 bg-zinc-950">
+            <div className="relative aspect-video w-full overflow-hidden border-b border-zinc-900/80 bg-zinc-950">
                 <Image
                     src={product.imageUrl}
                     alt={product.title}
@@ -59,7 +59,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 </div>
 
                 {/* Rating and File Format specifications */}
-                <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 pt-1 border-t border-zinc-850/60">
+                <div className="flex items-center justify-between text-[11px] font-mono text-zinc-500 pt-1 border-t border-zinc-900/60">
                     <div className="flex items-center space-x-1">
                         <Star className="h-3.5 w-3.5 fill-amber-400 stroke-amber-400" />
                         <span className="font-bold text-zinc-300">{product.rating}</span>
@@ -67,7 +67,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
                     </div>
 
                     <div className="flex items-center space-x-2">
-                        <span className="rounded-md border border-zinc-850 bg-zinc-950 px-1.5 py-0.5 text-zinc-400">
+                        <span className="rounded-md border border-zinc-900 bg-zinc-950 px-1.5 py-0.5 text-zinc-400">
                             {product.fileFormat}
                         </span>
                         <span className="text-zinc-500">{product.fileSize}</span>
@@ -75,7 +75,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
                 </div>
 
                 {/* Price, Release Date, and Button Section */}
-                <div className="flex items-center justify-between pt-3 border-t border-zinc-850/60 mt-auto">
+                <div className="flex items-center justify-between pt-3 border-t border-zinc-900/60 mt-auto">
                     <div className="flex flex-col">
                         <span className="font-mono text-[9px] uppercase tracking-wider text-zinc-500 flex items-center gap-0.5">
                             <Calendar className="h-2.5 w-2.5" />

@@ -40,7 +40,7 @@ const AnalyticsPage = () => {
 
     if (!isAuthorized) {
         return (
-            <div className="rounded-xl border border-zinc-850 bg-zinc-900/10 p-12 text-center flex flex-col items-center justify-center space-y-4 min-h-[350px]">
+            <div className="rounded-xl border border-zinc-900 bg-zinc-900/10 p-12 text-center flex flex-col items-center justify-center space-y-4 min-h-[350px]">
                 <div className="rounded-full bg-zinc-900 p-4 border border-zinc-800 text-rose-500">
                     <ShieldAlert className="h-6 w-6" />
                 </div>
