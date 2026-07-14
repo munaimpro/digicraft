@@ -8,6 +8,7 @@ import { Product } from '@/types';
 import { Star, Download, ShieldCheck, Tag, Info, ArrowLeft, Heart, Sparkles, CheckCircle2 } from 'lucide-react';
 import ProductCard from './ProductCard';
 import { authClient } from '@/lib/auth-client';
+import toast from 'react-hot-toast';
 
 interface ProductDetailsProps {
     product: Product;
@@ -43,15 +44,43 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
         fetchRelated();
     }, [product.category, product._id]);
 
-    const handleDownload = () => {
-        setDownloadSuccess(true);
-        // Open download url in a safe simulated tab
-        setTimeout(() => {
-            window.open(product.downloadUrl, '_blank');
-        }, 1000);
-        setTimeout(() => {
-            setDownloadSuccess(false);
-        }, 5000);
+    const handlePurchase = async () => {
+        if (!user) {
+            toast.error('Please sign in to collect this ebook.');
+            router.push('/login');
+            return;
+        }
+
+        if (product?.sellerId === user.id) {
+            toast.error('You are the owner! Owners cannot buy their own products.');
+            return;
+        }
+
+        const purchaseData = {
+            productId: product?._id,
+            productTitle: product?.title,
+            imageUrl: product?.imageUrl,
+            totalAmount: product?.price,
+            downloadUrl: product?.downloadUrl,
+            sellerId: product?.sellerId,
+            buyerId: user?.id
+        }
+
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/purchase`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(purchaseData),
+        });
+        const data = await response.json();
+        // console.log(data);
+        if (data?.purchaseInsertedId) {
+            toast.success("Product purchased successfully");
+            window.location.href = product?.downloadUrl;
+        } else {
+            toast.error(data?.message || "Product Already purchased");
+        }
     };
 
     // Mock specifications for better visual completeness
@@ -177,11 +206,11 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                             </button>
 
                             <button
-                                onClick={handleDownload}
+                                onClick={handlePurchase}
                                 className="inline-flex h-11 items-center space-x-2 rounded-lg bg-emerald-600 px-5 text-sm font-semibold text-white shadow-lg shadow-emerald-950/30 hover:bg-emerald-500 active:scale-[0.98] transition-all duration-200"
                             >
                                 <Download className="h-4 w-4" />
-                                <span>Download Asset</span>
+                                <span>Buy Tool</span>
                             </button>
                         </div>
                     </div>

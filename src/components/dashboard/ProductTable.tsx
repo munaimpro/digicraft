@@ -23,23 +23,17 @@ const ProductTable = ({ products, onDeleteSuccess }: ProductTableProps) => {
         setDeleting(true);
         setError('');
 
-        try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/digicraft-product/${deleteTargetId}`, {
-                method: 'DELETE',
-            });
+        const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/digicraft-product/${deleteTargetId}`, {
+            method: 'DELETE',
+        });
 
-            const data = await response.json();
-            if (response.ok) {
-                toast.success('Product Deleted');
-                onDeleteSuccess(deleteTargetId);
-                setDeleteTargetId(null);
-            } else {
-                setError(data.error || 'Failed to remove product');
-            }
-        } catch (e) {
-            setError('An unexpected error occurred during asset removal.');
-        } finally {
-            setDeleting(false);
+        const data = await response.json();
+        if (response.ok) {
+            toast.success('Product Deleted');
+            onDeleteSuccess(deleteTargetId);
+            setDeleteTargetId(null);
+        } else {
+            setError(data.error || 'Failed to remove product');
         }
     };
 
