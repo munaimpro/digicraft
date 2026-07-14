@@ -208,7 +208,7 @@ const ProductForm = () => {
                         </label>
                         <input
                             id="form-price"
-                            type="number"
+                            type="text"
                             required
                             min={0}
                             placeholder="e.g. 29"

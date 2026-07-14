@@ -11,9 +11,7 @@ import {
     ResponsiveContainer,
     LineChart,
     Line,
-    Cell,
-    PieChart,
-    Pie
+    Cell
 } from 'recharts';
 import { BarChart3, TrendingUp, DollarSign, Archive, Compass } from 'lucide-react';
 import { Product } from '@/types';
@@ -22,20 +20,51 @@ interface AnalyticsChartProps {
     products: Product[];
 }
 
+// API response data structure for type safety
+interface ApiResponseData {
+    metrics: {
+        totalRevenue: number;
+    };
+    genreData: { genre: string; count: number }[];
+    monthlySales: { month: string; revenue: number | string }[];
+}
+
 const AnalyticsChart = ({ products }: AnalyticsChartProps) => {
     const [mounted, setMounted] = useState(false);
+    const [apiData, setApiData] = useState<ApiResponseData | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setTimeout(() => {
-            setMounted(true);
-        }, 0);
+
+        // Fetch dynamic analytics from your Express backend
+        async function fetchAnalytics() {
+            try {
+                const response = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/analytics`);
+                const data = await response.json();
+                if (data) {
+                    setApiData(data);
+                }
+            } catch (error) {
+                console.error("Failed to load analytics data:", error);
+            } finally {
+                setLoading(false);
+                setMounted(true);
+            }
+        }
+
+        fetchAnalytics();
     }, []);
 
-    // Calculate dynamic stats
+    // 1. Calculate dynamic stats from products prop
     const totalProductsCount = products.length;
-    const totalRevenueMock = products.reduce((acc, p) => acc + p.price * (p.ratingCount + 10), 0); // Simulated download sales
 
-    // Group products by category
+    // 2. Extract dynamic Revenue from API or fallback to mock if API loading/fails
+    const totalRevenue = apiData?.metrics?.totalRevenue !== undefined
+        ? apiData.metrics.totalRevenue
+        : products.reduce((acc, p) => acc + p.price * (p.ratingCount + 10), 0);
+    console.log(totalRevenue);
+
+    // Group products by category (from props)
     const categoriesMap = products.reduce((acc, p) => {
         acc[p.category] = (acc[p.category] || 0) + 1;
         return acc;
@@ -46,21 +75,32 @@ const AnalyticsChart = ({ products }: AnalyticsChartProps) => {
         value,
     }));
 
-    // Scaled revenue history data to align beautifully with the specific products of the seller
-    const baseScale = totalProductsCount > 0 ? (totalRevenueMock / 11500) : 0;
-    const revenueHistory = [
-        { name: 'Jan', revenue: Math.round(1800 * baseScale) },
-        { name: 'Feb', revenue: Math.round(2400 * baseScale) },
-        { name: 'Mar', revenue: Math.round(2100 * baseScale) },
-        { name: 'Apr', revenue: Math.round(3600 * baseScale) },
-        { name: 'May', revenue: Math.round(3100 * baseScale) },
-        { name: 'Jun', revenue: Math.round(4200 * baseScale) },
-        { name: 'Jul', revenue: Math.round(totalRevenueMock * 0.45) },
-    ];
+    // 3. Extract dynamic Monthly Sales from API or fallback to calculated scaling
+    let revenueHistory = [];
+    if (apiData && apiData.monthlySales) {
+        revenueHistory = apiData.monthlySales.map(item => ({
+            name: item.month,
+            revenue: typeof item.revenue === 'string' ? parseFloat(item.revenue) : item.revenue
+        }));
+        console.log(revenueHistory);
+    } else {
+        // Fallback scaling calculation if API hasn't resolved yet
+        const baseScale = totalProductsCount > 0 ? (totalRevenue / 11500) : 0;
+        revenueHistory = [
+            { name: 'Jan', revenue: Math.round(1800 * baseScale) },
+            { name: 'Feb', revenue: Math.round(2400 * baseScale) },
+            { name: 'Mar', revenue: Math.round(2100 * baseScale) },
+            { name: 'Apr', revenue: Math.round(3600 * baseScale) },
+            { name: 'May', revenue: Math.round(3100 * baseScale) },
+            { name: 'Jun', revenue: Math.round(4200 * baseScale) },
+            { name: 'Jul', revenue: Math.round(totalRevenue * 0.45) },
+        ];
+    }
 
     const COLORS = ['#10b981', '#06b6d4', '#8b5cf6', '#f59e0b', '#ec4899'];
 
-    if (!mounted) {
+    // Render loading skeleton while mounting or fetching API data
+    if (!mounted || loading) {
         return (
             <div className="space-y-6 animate-pulse">
                 <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
@@ -89,11 +129,13 @@ const AnalyticsChart = ({ products }: AnalyticsChartProps) => {
                     </div>
                 </div>
 
-                {/* Total simulated earnings */}
+                {/* Total API Dynamic earnings */}
                 <div className="rounded-xl border border-zinc-900 bg-zinc-900/20 p-5 flex items-center justify-between">
                     <div className="space-y-1">
                         <span className="font-mono text-[10px] uppercase font-bold text-zinc-500">Cumulative Sales Volume</span>
-                        <p className="text-2xl font-black text-white">${totalRevenueMock.toLocaleString()}</p>
+                        <p className="text-2xl font-black text-white">
+                            ${totalRevenue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                        </p>
                         <p className="text-[10px] text-emerald-400">+12.4% from last quarter</p>
                     </div>
                     <div className="rounded-md bg-zinc-950 p-2.5 border border-zinc-800 text-emerald-500">
@@ -116,7 +158,7 @@ const AnalyticsChart = ({ products }: AnalyticsChartProps) => {
 
             {/* Recharts Displays */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {/* Sales Trend LineChart */}
+                {/* Sales Trend LineChart (Dynamic API Monthly Sales) */}
                 <div className="rounded-xl border border-zinc-900 bg-zinc-900/5 p-5 space-y-4">
                     <div className="flex items-center space-x-2 pb-3 border-b border-zinc-900/60">
                         <TrendingUp className="h-4.5 w-4.5 text-emerald-500" />
@@ -133,6 +175,26 @@ const AnalyticsChart = ({ products }: AnalyticsChartProps) => {
                                 <Tooltip
                                     contentStyle={{ backgroundColor: '#09090b', borderColor: '#27272a' }}
                                     labelStyle={{ color: '#a1a1aa' }}
+                                    formatter={(value: unknown) => {
+                                        let numValue = 0;
+
+                                        if (typeof value === 'number') {
+                                            numValue = value;
+                                        } else if (typeof value === 'string') {
+                                            numValue = parseFloat(value);
+                                        } else if (Array.isArray(value)) {
+                                            // For read-only array
+                                            const firstVal = value[0];
+                                            numValue = typeof firstVal === 'number'
+                                                ? firstVal
+                                                : parseFloat(String(firstVal || 0));
+                                        }
+
+                                        // Handle invalid number
+                                        const safeValue = isNaN(numValue) ? 0 : numValue;
+
+                                        return [`$${safeValue.toFixed(2)}`, 'Revenue'];
+                                    }}
                                 />
                                 <Line
                                     type="monotone"
