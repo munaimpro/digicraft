@@ -16,7 +16,7 @@ const LoginPage = () => {
                             </span>
                         </Link>
                         <h2 className="text-2xl font-black tracking-tight text-white">
-                            Access Developer Portal
+                            Access Portal
                         </h2>
                         <p className="text-xs text-zinc-400">
                             Enter your credentials or click any sandbox profile below to auto-fill the form instantly.

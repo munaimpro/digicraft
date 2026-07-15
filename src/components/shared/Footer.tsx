@@ -26,7 +26,6 @@ const Footer = () => {
                     {/* Brand Info */}
                     <div className="space-y-6">
                         <Link href="/" className="flex items-center space-x-2 text-emerald-400">
-                            <Terminal className="h-6 w-6 stroke-[2.5]" />
                             <span className="font-mono text-xl font-black tracking-tight text-white">
                                 DIGI<span className="text-emerald-500">CRAFT</span>
                             </span>

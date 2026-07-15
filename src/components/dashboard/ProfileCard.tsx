@@ -8,7 +8,7 @@ const ProfileCard = () => {
     const { data: session } = authClient.useSession();
     const user = session?.user;
 
-    const [name, setName] = useState(user?.name || 'Developer User');
+    const [name, setName] = useState(user?.name || 'User');
     const [email, setEmail] = useState(user?.email || 'user@example.com');
     const [loading, setLoading] = useState(false);
     const [success, setSuccess] = useState(false);
@@ -76,6 +76,7 @@ const ProfileCard = () => {
                                     id="profile-name"
                                     type="text"
                                     required
+                                    disabled
                                     value={name}
                                     onChange={(e) => setName(e.target.value)}
                                     className="w-full rounded-md border border-zinc-900 bg-zinc-950 py-2.5 pl-9 pr-3 text-xs sm:text-sm text-white focus:border-emerald-500 focus:outline-none"
@@ -96,6 +97,7 @@ const ProfileCard = () => {
                                     id="profile-email"
                                     type="email"
                                     required
+                                    disabled
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
                                     className="w-full rounded-md border border-zinc-900 bg-zinc-950 py-2.5 pl-9 pr-3 text-xs sm:text-sm text-white focus:border-emerald-500 focus:outline-none"
@@ -142,7 +144,7 @@ const ProfileCard = () => {
                         </div>
                     </div>
 
-                    <div className="pt-4 border-t border-zinc-900 flex justify-end">
+                    {/* <div className="pt-4 border-t border-zinc-900 flex justify-end">
                         <button
                             type="submit"
                             disabled={loading}
@@ -150,7 +152,7 @@ const ProfileCard = () => {
                         >
                             {loading ? 'Saving Changes...' : 'Save Profile Changes'}
                         </button>
-                    </div>
+                    </div> */}
                 </form>
             </div>
         </div>

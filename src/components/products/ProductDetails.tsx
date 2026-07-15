@@ -143,7 +143,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                         </span>
                     </div>
 
-                    {/* Simulated Alternate Media Frames (Representing multiple perspectives) */}
+                    {/* Multiple Image Section */}
                     <div className="grid grid-cols-4 gap-3">
                         <div className="relative aspect-video rounded-lg border border-emerald-500/50 bg-zinc-900/40 overflow-hidden cursor-pointer" title="Main Screen">
                             <Image src={product.imageUrl} alt="Alt 1" fill className="object-cover opacity-80 hover:opacity-100 transition-opacity" referrerPolicy="no-referrer" />
@@ -291,7 +291,7 @@ const ProductDetails = ({ product }: ProductDetailsProps) => {
                         <div className="space-y-6">
                             <h3 className="text-lg font-bold text-white flex items-center gap-1.5">
                                 <Star className="h-5 w-5 text-emerald-500" />
-                                <span>Developer Reviews ({reviews.length})</span>
+                                <span>User Reviews ({reviews.length})</span>
                             </h3>
                             <div className="space-y-4">
                                 {reviews.map((rev) => (

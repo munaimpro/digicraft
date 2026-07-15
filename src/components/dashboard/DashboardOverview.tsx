@@ -137,7 +137,7 @@ const DashboardOverview = () => {
                                             <div>
                                                 <h4 className="text-xs font-bold text-white">{item.productTitle}</h4>
                                                 <span className="font-mono text-[9px] text-zinc-500 uppercase">
-                                                    Amount: ${item.totalAmount} &bull; Standard Developer License
+                                                    Amount: ${item.totalAmount} &bull; Standard License
                                                 </span>
                                             </div>
                                             <a

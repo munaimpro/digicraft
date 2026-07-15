@@ -41,7 +41,6 @@ const NavBar = () => {
             <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
                 {/* Logo */}
                 <Link href="/" className="flex items-center space-x-2 text-emerald-400 hover:text-emerald-300 transition-colors">
-                    <Terminal className="h-6 w-6 stroke-[2.5]" />
                     <span className="font-mono text-xl font-black tracking-tight text-white">
                         DIGI<span className="text-emerald-500">CRAFT</span>
                     </span>

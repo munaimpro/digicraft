@@ -69,7 +69,7 @@ const DashboardSidebar = () => {
                 <div className="flex items-center space-x-2 pb-6 border-b border-zinc-900">
                     <div className="h-2.5 w-2.5 rounded-full bg-emerald-500 animate-pulse" />
                     <span className="font-mono text-xs font-bold uppercase tracking-widest text-zinc-400">
-                        Live Dashboard
+                        Dashboard
                     </span>
                 </div>
 

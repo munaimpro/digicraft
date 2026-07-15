@@ -15,7 +15,7 @@ const Statistics = () => {
         {
             id: 'stat-users',
             value: '18,500+',
-            label: 'Active Developers',
+            label: 'Active Users',
             description: 'Engineers, agencies, and independent creators worldwide.',
             icon: Users,
         },
