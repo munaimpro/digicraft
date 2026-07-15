@@ -65,7 +65,7 @@ const Categories = () => {
                             <Link
                                 key={cat.name}
                                 href={`/products?category=${encodeURIComponent(cat.name)}`}
-                                className="group relative rounded-xl border border-zinc-900 bg-zinc-900/10 p-6 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500/30 hover:bg-zinc-900/30 flex flex-col justify-between h-[210px] shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_40px_-10px_rgba(16,185,129,0.08)]"
+                                className="h-fit group relative rounded-xl border border-zinc-900 bg-zinc-900/10 p-6 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:border-emerald-500/30 hover:bg-zinc-900/30 flex flex-col justify-between h-[210px] shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:shadow-[0_15px_40px_-10px_rgba(16,185,129,0.08)]"
                             >
                                 {/* Background decorative gradient */}
                                 <div className={`absolute inset-0 bg-gradient-to-br ${cat.color} opacity-40 transition-opacity duration-300 group-hover:opacity-100`} />
